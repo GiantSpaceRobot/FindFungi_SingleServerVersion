@@ -1,29 +1,15 @@
 
-# FindFungi-v0.23.3
+# FindFungi-v0.23.3 Single Server Version 
 
 A pipeline for the identification of fungi in public metagenomics datasets.
+
+This version of the pipeline is used for running FindFungi on a single Unix server as opposed to a compute cluster/load sharing facility.
+
 The FindFungi pipeline uses the metagenomics read-classifier Kraken with 32 custom fungal 
 databases to generate 32 taxon predictions for a single read. These 32 predictions are 
 combined to generate a consensus prediction. All reads are then BLASTed against their
 predicted genomes to generate read distribution skewness scores to select for the 
 most likely true positives.
-
-FindFungi-v0.23.3 corrects an error in the LowestCommonAncestor_V4.sh script where the 
-Python path and script path were incorrect.
-
-FindFungi v0.23.2 corrects an error where the KrakenReduction.py script requested a file 
-that was generated in FindFungi v0.22. This step has been removed.
-
-FindFungi v0.23.1 corrects an error in v0.23, which did not correctly calculate Pearson’s 
-skewness scores. A multiplication factor of 3 was omitted in v0.23 
-(3(mean-median)/standard deviation). Skewness scores calculated by v0.23.1 are therefore 
-3-times higher than with v0.23 (i.e. cut-offs should be expressed as -0.6 to +0.6, and 
-not -0.2 to +0.2 as in v0.23). This makes no difference to the interpretation of any of 
-the results or the data analysis. 
-
-FindFungi-0.23 was built on an IBM platform load-sharing facility with 32 worker nodes.
-Similar architecture is required to set up the pipeline due to the memory requirements of 
-the Kraken databases.
 
 ## Quickstart
 
@@ -37,9 +23,7 @@ Run the pipeline:
 ## Getting Started
 
 These instructions will hopefully allow you to get a copy of FindFungi up and running 
-on your own compute-cluster/server for development or your own analyses. If using a 
-non-IBM LSF compute cluster, change the 'bsub' commands to reflect your architecture.
-If using a single server, remove the 'bsub' commands.
+on your own server for development or your own analyses.
 
 ### Prerequisites
 
@@ -62,9 +46,6 @@ re)
 * In the FindFungi-v0.23.3 script, change the absolute paths of skewer, kraken, blast, the shell 
 and python scripts to reflect your environment, or add these tools and scripts to you $PATH. 
 You will also need to edit the LowestCommonAncestor.sh script to include the path to the downloaded scripts.
-* NOTE: It may be necessary for you to include the absolute paths for all of the scripts
-and tools within the FindFungi-0.23.sh master script, depending on the cluster node
-preferences (e.g. executing 'python' actually calls the node's version of python, not yours).
 * Download the Kraken and BLAST databases from this website (http://bioinformatics.czc.hokudai.ac.jp/findfungi/).
 * Uncompress these files and put them somewhere sensible:
 
